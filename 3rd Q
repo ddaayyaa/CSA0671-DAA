@@ -1,0 +1,29 @@
+def sum_of_squares_of_distinct_counts(nums):
+    n = len(nums)
+    total_sum_of_squares = 0
+
+    # Iterate over all possible starting points of subarrays
+    for i in range(n):
+        # Dictionary to count occurrences of elements in the current subarray
+        count = {}
+        distinct_count = 0
+
+        # Iterate over all possible end points of subarrays starting from i
+        for j in range(i, n):
+            if nums[j] not in count:
+                count[nums[j]] = 0
+            count[nums[j]] += 1
+            
+            # If this is the first occurrence, increment the distinct count
+            if count[nums[j]] == 1:
+                distinct_count += 1
+
+            # Calculate the square of the distinct count and add it to the total sum
+            total_sum_of_squares += distinct_count ** 2
+
+    return total_sum_of_squares
+
+# Example usage
+nums = [1, 2, 1]
+result = sum_of_squares_of_distinct_counts(nums)
+print(f"Sum of squares of distinct counts: {result}")

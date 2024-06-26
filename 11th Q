@@ -1,0 +1,33 @@
+def findPaths(m, n, N, i, j):
+    MOD = 10**9 + 7
+    
+    # Create a 3D DP array with dimensions (N+1) x m x n
+    dp = [[[0 for _ in range(n)] for _ in range(m)] for _ in range(N+1)]
+    
+    # Direction vectors for up, down, left, right
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    # Iterate over the number of steps
+    for step in range(1, N+1):
+        for r in range(m):
+            for c in range(n):
+                # Check all four possible moves
+                for dr, dc in directions:
+                    new_r, new_c = r + dr, c + dc
+                    # If the move goes out of bounds, increase the count
+                    if new_r < 0 or new_r >= m or new_c < 0 or new_c >= n:
+                        dp[step][r][c] += 1
+                    else:
+                        dp[step][r][c] += dp[step-1][new_r][new_c]
+                    dp[step][r][c] %= MOD
+    
+    return dp[N][i][j]
+
+# Test Case
+m = 2
+n = 2
+N = 2
+i = 0
+j = 0
+result = findPaths(m, n, N, i, j)
+print("Number of ways to move the ball out of the grid boundary:", result)

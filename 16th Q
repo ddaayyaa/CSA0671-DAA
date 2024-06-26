@@ -1,0 +1,30 @@
+def gameOfLife(board):
+    import copy
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]
+    m, n = len(board), len(board[0])
+    new_board = copy.deepcopy(board)
+    
+    for i in range(m):
+        for j in range(n):
+            live_neighbors = sum(board[i+di][j+dj] == 1 for di, dj in directions if 0 <= i+di < m and 0 <= j+dj < n)
+            
+            if board[i][j] == 1:
+                if live_neighbors < 2 or live_neighbors > 3:
+                    new_board[i][j] = 0
+            else:
+                if live_neighbors == 3:
+                    new_board[i][j] = 1
+    
+    for i in range(m):
+        for j in range(n):
+            board[i][j] = new_board[i][j]
+
+# Example usage
+board = [
+    [0,1,0],
+    [0,0,1],
+    [1,1,1],
+    [0,0,0]
+]
+gameOfLife(board)
+print(board)  # Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]

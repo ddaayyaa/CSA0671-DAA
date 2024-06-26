@@ -1,0 +1,26 @@
+def binary_search(arr, x):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # Check if x is present at mid
+        if arr[mid] == x:
+            return f"Element {x} is found at position {mid}"
+        
+        # If x is greater, ignore left half
+        elif arr[mid] < x:
+            left = mid + 1
+        
+        # If x is smaller, ignore right half
+        else:
+            right = mid - 1
+    
+    # If we reach here, the element was not present
+    return f"Element {x} is not found in the array"
+
+# Test Case
+arr = [3, 4, 6, -9, 10, 8, 9, 30]
+x = 10
+result = binary_search(arr, x)
+print(result)
