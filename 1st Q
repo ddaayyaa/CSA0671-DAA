@@ -1,0 +1,17 @@
+def first_palindromic_string(words):
+    # Helper function to check if a string is palindromic
+    def is_palindrome(word):
+        return word == word[::-1]
+
+    # Iterate through the list of words
+    for word in words:
+        if is_palindrome(word):
+            return word
+
+    # If no palindromic string is found, return an empty string
+    return ""
+
+# Example usage
+words = ["abc", "car", "ada", "racecar", "cool"]
+result = first_palindromic_string(words)
+print(f"The first palindromic string is: {result}")
